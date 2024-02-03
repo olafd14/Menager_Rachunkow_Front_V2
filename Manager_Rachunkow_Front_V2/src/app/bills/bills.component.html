@@ -1,0 +1,155 @@
+<br>
+<br>
+<button type="button" (click)="addNew()" class="btn btn-primary">Dodaj nowy rachunek</button>
+<br>
+<br>
+<br>
+<div [ngSwitch]="selectedComponent">
+    <ng-template [ngSwitchCase]="'Table'">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr mdbTableCol *ngFor="let el of elements?.billList">
+                    <div *ngIf="lastYear != el.Year; else emptyYear">
+                        {{ newLastYear(el.Year) }}
+                <tr>
+                    <th scope="row">{{el.Year }}</th>
+                    <th scope="row">{{el.Name }}</th>
+                    <td>{{el.January}}</td>
+                    <td>{{el.February}}</td>
+                    <td>{{el.March}}</td>
+                    <td>{{el.April}}</td>
+                    <td>{{el.May}}</td>
+                    <td>{{el.June}}</td>
+                    <td>{{el.July}}</td>
+                    <td>{{el.August}}</td>
+                    <td>{{el.September}}</td>
+                    <td>{{el.October}}</td>
+                    <td>{{el.November}}</td>
+                    <td>{{el.December}}</td>
+                    <td><button type="button" class="btn btn-info" (click)="editBill(el)">Edytuj</button></td>
+                </tr>
+</div>
+</tr>
+</tbody>
+</table>
+</ng-template>
+</div>
+<ng-template #emptyYear>
+    <tr>
+        <th scope="row"></th>
+    </tr>
+</ng-template>
+
+
+<ng-template [ngSwitchCase]="'AddNewBill'">
+    <div class="center-div">
+        <font size="6" face="Comic Sans MS" color="black">
+            <p style="text-align:center">Dodaj nowy rachunek</p>
+        </font>
+        <form #empForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputYear">Rok</label>
+                <input style="width: 30%;" type="text" name="year" [(ngModel)]="bill.Year" class="form-control"
+                    id="exampleInputYear" aria-describedby="yearHelp" placeholder="Rok">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName">Name</label>
+                <input style="width: 30%;" type="text" name="name" [(ngModel)]="bill.Name" class="form-control"
+                    id="exampleInputName" placeholder="Nazwa">
+            </div>
+        </form>
+        <br>
+        <button type="button" (click)="addNewBill()" class="btn btn-primary btn-100with">Dodaj</button><br><br>
+    </div>
+</ng-template>
+<ng-template [ngSwitchCase]="'Edit'">
+    <div class="center-div">
+        <font size="6" face="Comic Sans MS" color="black">
+            <p style="text-align:center">Edytuj wybrana pozycje</p>
+        </font>
+        <form #empForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputYear">Rok</label>
+                <input style="width: 30%;" type="text" name="year" [(ngModel)]="billEdit.Year" class="form-control"
+                    id="exampleInputYear" aria-describedby="yearHelp" placeholder="billEdit.year">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName">Nazwa</label>
+                <input style="width: 30%;" type="text" name="name" [(ngModel)]="billEdit.Name" class="form-control"
+                    id="exampleInputName" placeholder="nazwa nowej kategorii">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputStyczen">Styczen</label>
+                <input style="width: 30%;" type="text" name="styczen" [(ngModel)]="billEdit.January"
+                    class="form-control" id="exampleInputStyczen" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputLuty">Luty</label>
+                <input style="width: 30%;" type="text" name="luty" [(ngModel)]="billEdit.February" class="form-control"
+                    id="exampleInputLuty" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputMarzec">Marzec</label>
+                <input style="width: 30%;" type="text" name="marzec" [(ngModel)]="billEdit.March" class="form-control"
+                    id="exampleInputMarzec" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputKwiecien">Kwiecien</label>
+                <input style="width: 30%;" type="text" name="kwiecien" [(ngModel)]="billEdit.April" class="form-control"
+                    id="exampleInputKwiecien" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputMaj">Maj</label>
+                <input style="width: 30%;" type="text" name="maj" [(ngModel)]="billEdit.May" class="form-control"
+                    id="exampleInputMaj" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputCzerwiec">Czerwiec</label>
+                <input style="width: 30%;" type="text" name="czerwiec" [(ngModel)]="billEdit.July" class="form-control"
+                    id="exampleInputCzerwiec" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputLipiec">Lipiec</label>
+                <input style="width: 30%;" type="text" name="lipiec" [(ngModel)]="billEdit.June" class="form-control"
+                    id="exampleInputLipiec" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputSierpien">Sierpien</label>
+                <input style="width: 30%;" type="text" name="sierpien" [(ngModel)]="billEdit.August"
+                    class="form-control" id="exampleInputSierpien" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputWrzesien">Wrzesien</label>
+                <input style="width: 30%;" type="text" name="wrzesien" [(ngModel)]="billEdit.September"
+                    class="form-control" id="exampleInputWrzesien" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPazdzienik">Pazdzienik</label>
+                <input style="width: 30%;" type="text" name="pazdzienik" [(ngModel)]="billEdit.October"
+                    class="form-control" id="exampleInputPazdzienik" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputListopad">Listopad</label>
+                <input style="width: 30%;" type="text" name="listopad" [(ngModel)]="billEdit.November"
+                    class="form-control" id="exampleInputListopad" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputGrudzien">Grudzien</label>
+                <input style="width: 30%;" type="text" name="grudzien" [(ngModel)]="billEdit.December"
+                    class="form-control" id="exampleInputGrudzien" placeholder="0">
+            </div>
+        </form>
+        <br>
+        <button type="button" (click)="editBillInDB()" class="btn btn-primary btn-100with">Edytuj</button><br><br>
+    </div>
+</ng-template>
+<ng-template ngSwitchDefault>
+</ng-template>
+
+<br>
+<br>

@@ -1,0 +1,24 @@
+<p>mainpage works!</p>
+<div class="logo">
+    <img src="./../../assets/Banner.png">
+    <div class="btn-group" style="width:100%; padding-left: 10%; padding-right: 10%;">
+        <button (click)="componentSelect('Home')" style="width:25%">Strona główna</button>
+        <ng-container *ngIf="isAdmin === 'true'; then AdminTemplate; else BillsTemplate">
+        </ng-container>
+        <ng-template #AdminTemplate>
+            <button (click)="componentSelect('Admin')" style="width:25%">Administrator</button>
+        </ng-template>
+        <ng-template #BillsTemplate>
+            <button (click)="componentSelect('Bills')" style="width:25%">Rachunki</button>
+        </ng-template>
+        <button (click)="componentSelect('Info')" style="width:25%">Informacje</button>
+        <button (click)="componentSelect('Logout')" style="width:25%">Wyloguj</button>
+    </div>
+    <div style="width:60%; margin-left: 15%;" [ngSwitch]="selectedComponent">
+        <ng-template [ngSwitchCase]="'Home'"> <app-home></app-home> </ng-template>
+        <ng-template [ngSwitchCase]="'Admin'"> <app-admin></app-admin></ng-template>
+        <ng-template [ngSwitchCase]="'Bills'"> <app-bills></app-bills></ng-template>
+        <ng-template [ngSwitchCase]="'Info'"> <app-info></app-info> </ng-template>
+        <ng-template ngSwitchDefault> <app-home></app-home></ng-template>
+    </div>
+</div>

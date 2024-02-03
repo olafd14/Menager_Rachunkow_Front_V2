@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+    background-color: #09ecec;
+}
+
+.center-div {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 40%;
+    left: 0;
+    width: 200px;
+    height: 200px;
+}
+
+.btn-100with {
+    width: 100%;
+}
+
+.loginbac {
+    background-color: black;
+}
