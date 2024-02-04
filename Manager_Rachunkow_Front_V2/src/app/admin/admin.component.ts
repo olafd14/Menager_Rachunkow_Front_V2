@@ -13,9 +13,9 @@ export class AdminComponent implements OnInit {
   selectedComponent = 'Table';
   headElements = ['Nazwa', 'Mail', 'Num. Telefonu', 'Zaplacil', 'Edytuj'];
   response: IResponse | undefined = { code: 0, message: '', status: '' };
-  user: IUser = { mail: '', name: '', password: '', telNumber: 0, isPaid: false };
+  user: IUser = { mail: '', name: '', password: '', telNumber: '', isPaid: false };
   elements: IUsers | undefined = { userList: Array<IUser>() };
-  userEdit: IUser = { mail: '', name: '', password: '', telNumber: 0, isPaid: false };
+  userEdit: IUser = { mail: '', name: '', password: '', telNumber: '', isPaid: false };
   constructor(private userService: UsersService, private toastr: ToastrService) { }
   ngOnInit() {
     this.getData();

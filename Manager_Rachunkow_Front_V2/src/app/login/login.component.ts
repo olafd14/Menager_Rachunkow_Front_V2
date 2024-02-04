@@ -20,10 +20,11 @@ export class LoginComponent implements OnInit {
   logedInDb!: IResponseAfterLogin;
   registerInDb!: IResponseAfterLogin;
   infoInvalidData = '';
-  user: IUser = { name: '', password: '', mail: '', telNumber: 0, isPaid: false };
+  user: IUser = { name: '', password: '', mail: '', telNumber: '', isPaid: false };
   ngOnInit() {
     this.loged = true;
   }
+
   async logIn() {
     if (this.loged === false) {
       this.infoInvalidData = '';
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
       this.infoInvalidData = 'Invalid email or password';
     }
   }
+
   async register() {
     if (this.loged === true) {
       this.infoInvalidData = '';

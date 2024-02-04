@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IInformations } from '../interfaces/iinformations';
 import { IInformation } from '../interfaces/iinformation';
 import { IResponse } from '../interfaces/iresponse';
-import { InformationsService } from '../services/iinformations.service';
+import { InformationsService } from '../services/informations.service';
 
 @Component({
   selector: 'app-info',
