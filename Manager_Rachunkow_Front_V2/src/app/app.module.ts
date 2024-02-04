@@ -16,6 +16,7 @@ import { BillsComponent } from './bills/bills.component';
 import { AdminComponent } from './admin/admin.component';
 import { InformationsComponent } from './informations/informations.component';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -51,7 +52,8 @@ const routes: Routes = [
     ToastrModule.forRoot()
   ],
   providers: [
-    CookieService
+    CookieService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
