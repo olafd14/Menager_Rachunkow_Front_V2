@@ -8,7 +8,7 @@
 <div [ngSwitch]="selectedComponent">
     <ng-template [ngSwitchCase]="'Table'">
         <div *ngFor="let el of elements?.informationList">
-            <b>{{el.Name}}</b> <br>
+            <b>{{el.Name}}</b><br>
             {{el.Content}} <br>
             <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
         </div>
