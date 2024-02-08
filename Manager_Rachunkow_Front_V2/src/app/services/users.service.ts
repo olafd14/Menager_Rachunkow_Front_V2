@@ -10,7 +10,7 @@ export class UsersService {
   appUrl = 'https://localhost:8080';
   constructor(private http: HttpClient) { }
   getAllUsers() {
-    return this.http.get<IUsers>(this.appUrl + '/api/users/getAll').toPromise();
+    return this.http.get<IUsers>(this.appUrl + '/api/users/getAll', {withCredentials: true}).toPromise();
   }
   editUser(user: IUser) {
     const headers = new HttpHeaders({

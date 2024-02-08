@@ -7,9 +7,16 @@
 <br>
 <div [ngSwitch]="selectedComponent">
     <ng-template [ngSwitchCase]="'Table'">
+        <!-- <div *ngFor="let element of elements">
+            <div *ngFor="let el of element.informationList">
+                {{el.Name }} - {{el.Content}}
+                <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
+            </div>
+        </div> -->
+          
         <div *ngFor="let el of elements?.informationList">
-            <b>{{el.Name}}</b><br>
-            {{el.Content}} <br>
+            <b>{{el.name}}</b><br>
+            {{el.content}} <br>
             <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
         </div>
     </ng-template>
@@ -21,13 +28,13 @@
             <form #empForm="ngForm">
                 <div class="form-group">
                     <label for="exampleInputYear">Nazwa</label>
-                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="information.Name"
+                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="information.name"
                         class="form-control" id="exampleInputName" aria-describedby="nameHelp"
                         placeholder="Nazwa informacji">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputContent">Informacja</label>
-                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="information.Content"
+                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="information.content"
                         class="form-control" id="exampleInputContent" placeholder="Informacja">
                 </div>
             </form>
@@ -43,13 +50,13 @@
             <form #empForm="ngForm">
                 <div class="form-group">
                     <label for="exampleInputYear">Nazwa</label>
-                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="informationEdit.Name"
+                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="informationEdit.name"
                         class="form-control" id="exampleInputName" aria-describedby="nameHelp"
                         placeholder="Nazwa informacji">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputContent">Informacja</label>
-                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="informationEdit.Content"
+                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="informationEdit.content"
                         class="form-control" id="exampleInputContent" placeholder="Informacja">
                 </div>
             </form>

@@ -15,14 +15,15 @@ export class InformationsComponent implements OnInit {
   selectedComponent = 'Table';
   elements: IInformations | undefined = { informationList: Array<IInformation>() };
   response: IResponse | undefined = { code: 0, message: '', status: '' };
-  information: IInformation = { Name: '', Content: '', UserId: this.cookieService.get('userId'), Id: 0 };
-  informationEdit: IInformation = { Name: '', Content: '', UserId: this.cookieService.get('userId'), Id: 0 };
+  information: IInformation = { name: '', content: '', UserId: this.cookieService.get('userId'), Id: 0 };
+  informationEdit: IInformation = { name: '', content: '', UserId: this.cookieService.get('userId'), Id: 0 };
   constructor(private informationService: InformationsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {
     this.getData();
   }
   async getData() {
     this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
+    console.log(this.elements);
   }
   addNew() {
     this.selectedComponent = 'AddNewInfo';

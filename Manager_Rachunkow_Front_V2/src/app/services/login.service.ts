@@ -16,7 +16,7 @@ export class LoginService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    const options = { headers: headers };
+    const options = { headers: headers, withCredentials: true };
 
     try {
       const userJson = JSON.stringify(user);

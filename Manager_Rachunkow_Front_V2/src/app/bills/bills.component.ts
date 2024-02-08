@@ -17,13 +17,13 @@ export class BillsComponent implements OnInit {
     'Czerwiec', 'Lipiec', 'Sierpien', 'Wrzesien', 'Pazdziernik', 'Listopad', 'Grudzien', 'Edytuj'];
   response: IResponse | undefined = { code: 0, message: '', status: '' };
   bill: IBill = {
-    Name: '', Year: '', April: '', August: '', December: '', February: '', Id: 0, January: '', July: '',
-    June: '', March: '', May: '', November: '', October: '', September: '', UserId: this.cookieService.get('userId')
+    name: '', year: '', april: '', august: '', december: '', february: '', id: 0, january: '', july: '',
+    june: '', march: '', may: '', november: '', october: '', september: '', userId: this.cookieService.get('userId')
   };
   elements: IBills | undefined = { billList: Array<IBill>() };
   billEdit: IBill = {
-    Name: '', Year: '', April: '', August: '', December: '', February: '', Id: 0, January: '', July: '',
-    June: '', March: '', May: '', November: '', October: '', September: '', UserId: ''
+    name: '', year: '', april: '', august: '', december: '', february: '', id: 0, january: '', july: '',
+    june: '', march: '', may: '', november: '', october: '', september: '', userId: ''
   };
   constructor(private billsService: BillsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {
