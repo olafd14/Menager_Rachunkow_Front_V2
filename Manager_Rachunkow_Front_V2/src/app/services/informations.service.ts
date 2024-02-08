@@ -26,7 +26,7 @@ export class InformationsService {
     const options = { headers: headers };
     return this.http.put<IResponse>(this.appUrl + '/api/information/edit', information, options).toPromise();
   }
-  deleteInformation(mail: string) {
-    return this.http.delete<IResponse>(this.appUrl + '/api/information/delete/' + mail).toPromise();
+  deleteInformation(informationId: number) {
+    return this.http.delete<IResponse>(this.appUrl + '/api/information/delete/' + informationId).toPromise();
   }
 }

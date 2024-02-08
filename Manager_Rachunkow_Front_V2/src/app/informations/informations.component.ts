@@ -15,8 +15,9 @@ export class InformationsComponent implements OnInit {
   selectedComponent = 'Table';
   elements: IInformations | undefined = { informationList: Array<IInformation>() };
   response: IResponse | undefined = { code: 0, message: '', status: '' };
-  information: IInformation = { name: '', content: '', UserId: this.cookieService.get('userId'), Id: 0 };
-  informationEdit: IInformation = { name: '', content: '', UserId: this.cookieService.get('userId'), Id: 0 };
+  information: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
+  informationEdit: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
+  informationId: number = 0; 
   constructor(private informationService: InformationsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {
     this.getData();
@@ -32,10 +33,22 @@ export class InformationsComponent implements OnInit {
     this.selectedComponent = 'Edit';
     this.informationEdit = infoToEdit;
   }
+  async delInfo(infoId: number) {
+    this.selectedComponent = 'Del';
+    this.informationId = infoId;
+  }
+  async delInfoInDB() {
+    this.response = await this.informationService.deleteInformation(this.informationId);
+    if (this.response && this.response.status === 'Success') {
+      this.toastr.success('Usunięto notatkę');
+      this.selectedComponent = 'Table';
+      this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
+    }
+  }
   async addNewInfo() {
     this.response = await this.informationService.addInformation(this.information);
     if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Dodano informacje');
+      this.toastr.success('Dodano notatkę');
       this.selectedComponent = 'Table';
       this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
     }
@@ -43,7 +56,7 @@ export class InformationsComponent implements OnInit {
   async editInfoInDB() {
     this.response = await this.informationService.editInformation(this.informationEdit);
     if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Edytowano informacje');
+      this.toastr.success('Edytowano notatkę');
       this.selectedComponent = 'Table';
       this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
     }

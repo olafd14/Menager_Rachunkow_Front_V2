@@ -1,6 +1,6 @@
 export interface IInformation {
-    Id: number;
-    UserId: string;
+    id: number;
+    userId: string;
     name: string;
     content: string;
 }

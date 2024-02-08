@@ -1,29 +1,22 @@
 <br>
 <br>
-<button type="button" (click)="addNew()" class="btn btn-primary">Dodaj nowa
-    informacje</button>
+<button type="button" (click)="addNew()" class="btn btn-primary">Dodaj nową notatkę</button>
 <br>
 <br>
 <br>
 <div [ngSwitch]="selectedComponent">
-    <ng-template [ngSwitchCase]="'Table'">
-        <!-- <div *ngFor="let element of elements">
-            <div *ngFor="let el of element.informationList">
-                {{el.Name }} - {{el.Content}}
-                <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
-            </div>
-        </div> -->
-          
+    <ng-template [ngSwitchCase]="'Table'">   
         <div *ngFor="let el of elements?.informationList">
             <b>{{el.name}}</b><br>
             {{el.content}} <br>
             <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
+            <button type="button" class="btn btn-info" (click)="delInfo(el.id)">Usuń</button><br><br>
         </div>
     </ng-template>
     <ng-template [ngSwitchCase]="'AddNewInfo'">
         <div class="center-div">
             <font size="6" face="Times New Roman" color="black">
-                <p style="text-align:center">Dodaj nowa informacje</p>
+                <p style="text-align:center">Dodaj nową notatkę</p>
             </font>
             <form #empForm="ngForm">
                 <div class="form-group">
@@ -62,6 +55,21 @@
             </form>
             <br>
             <button type="button" (click)="editInfoInDB()" class="btn btn-primary btn-100with">Edytuj</button><br><br>
+        </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'Del'">
+        <div class="center-div">
+            <font size="6" face="Times New Roman" color="black">
+                <p style="text-align:center">Czy na pewno usunąć?</p>
+            </font>
+            <form #empForm="ngForm">
+                <div class="form-group">
+                    <button type="button" (click)="delInfoInDB()" class="btn btn-primary btn-100with">Tak</button><br><br>
+                </div>
+                <div class="form-group">
+                    <button type="button" (click)="delInfoInDB()" class="btn btn-primary btn-100with">Nie</button><br><br>
+                </div>
+            </form>
         </div>
     </ng-template>
     <ng-template ngSwitchDefault>

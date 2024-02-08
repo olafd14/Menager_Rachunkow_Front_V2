@@ -10,7 +10,7 @@
         <ng-template #BillsTemplate>
             <button (click)="componentSelect('Bills')" style="width:25%">Rachunki</button>
         </ng-template>
-        <button (click)="componentSelect('Info')" style="width:25%">Informacje</button>
+        <button (click)="componentSelect('Info')" style="width:25%">Notatki</button>
         <button (click)="componentSelect('Logout')" style="width:25%">Wyloguj</button>
     </div>
     <div style="width:60%; margin-left: 15%;" [ngSwitch]="selectedComponent">

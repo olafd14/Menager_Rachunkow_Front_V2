@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   headElements = ['Nazwa', 'Mail', 'Num. Telefonu', 'Zaplacil', 'Edytuj'];
   response: IResponse | undefined = { code: 0, message: '', status: '' };
   user: IUser = { mail: '', name: '', password: '', telNumber: '', isPaid: false };
-  elements: IUsers | undefined = { userList: Array<IUser>() };
+  elements: IUsers | undefined = { usersList: Array<IUser>() };
   userEdit: IUser = { mail: '', name: '', password: '', telNumber: '', isPaid: false };
   constructor(private userService: UsersService, private toastr: ToastrService) { }
   ngOnInit() {
