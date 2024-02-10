@@ -28,12 +28,16 @@ export class AdminComponent implements OnInit {
     this.selectedComponent = 'Edit';
     this.userEdit = userToEdit;
   }
-  async editUserInDB() {
-    this.response = await this.userService.editUser(this.userEdit);
-    if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Edytowano uzytkownika');
+  async editUserInDB(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.userService.editUser(this.userEdit);
+      if (this.response && this.response.status === 'Success') {
+        this.toastr.success('Edytowano uzytkownika');
+        this.selectedComponent = 'Table';
+        this.elements = await this.userService.getAllUsers();
+      }
+    } else {
       this.selectedComponent = 'Table';
-      this.elements = await this.userService.getAllUsers();
     }
   }
 }

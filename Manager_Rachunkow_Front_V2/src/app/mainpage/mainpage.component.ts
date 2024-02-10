@@ -6,7 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-main-page',
   templateUrl: './mainpage.component.html',
-  styleUrls: ['./mainpage.component.css']
+  styleUrls: ['./mainpage.component.css'],
+  host: {'class': 'container-fluid'}
 })
 export class MainPageComponent implements OnInit {
   selectedComponent = 'Home';

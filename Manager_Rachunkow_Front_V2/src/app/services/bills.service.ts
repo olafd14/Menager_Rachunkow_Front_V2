@@ -26,7 +26,7 @@ export class BillsService {
         const options = { headers: headers };
         return this.http.put<IResponse>(this.appUrl + '/api/bill/edit', bill, options).toPromise();
     }
-    deleteBill(mail: string) {
-        return this.http.delete<IResponse>(this.appUrl + '/api/bill/delete/' + mail).toPromise();
+    deleteBill(billId: number) {
+        return this.http.delete<IResponse>(this.appUrl + '/api/bill/delete/' + billId).toPromise();
     }
 }

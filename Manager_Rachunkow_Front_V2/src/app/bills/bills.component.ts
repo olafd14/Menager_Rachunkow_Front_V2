@@ -13,8 +13,8 @@ import { IBills } from '../interfaces/ibills';
 export class BillsComponent implements OnInit {
   selectedComponent = 'Table';
   lastYear = '';
-  headElements = ['Rok', 'Nazwa', 'Styczen', 'Luty', 'Marzec', 'Kwiecien', 'Maj',
-    'Czerwiec', 'Lipiec', 'Sierpien', 'Wrzesien', 'Pazdziernik', 'Listopad', 'Grudzien', 'Edytuj'];
+  headElements = ['Data', 'Tytuł', 'Styczen', 'Luty', 'Marzec', 'Kwiecien', 'Maj',
+    'Czerwiec', 'Lipiec', 'Sierpien', 'Wrzesien', 'Pazdziernik', 'Listopad', 'Grudzien'];
   response: IResponse | undefined = { code: 0, message: '', status: '' };
   bill: IBill = {
     name: '', year: '', april: '', august: '', december: '', february: '', id: 0, january: '', july: '',
@@ -25,6 +25,7 @@ export class BillsComponent implements OnInit {
     name: '', year: '', april: '', august: '', december: '', february: '', id: 0, january: '', july: '',
     june: '', march: '', may: '', november: '', october: '', september: '', userId: ''
   };
+  billId: number = 0; 
   constructor(private billsService: BillsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {
     this.getData();
@@ -43,23 +44,48 @@ export class BillsComponent implements OnInit {
       this.billEdit = billToEdit;
     }
   }
-  async addNewBill() {
-    this.response = await this.billsService.addBill(this.bill);
-    if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Dodano rachunek');
-      this.selectedComponent = 'Table';
-      this.elements = await this.billsService.getBillsForUser(this.cookieService.get('userMail'));
-    }
+  async delBill(bId: number) {
+    this.selectedComponent = 'Del';
+    this.billId = bId;
   }
-  async editBillInDB() {
-    if (this.billEdit) {
-      this.response = await this.billsService.editBill(this.billEdit);
+  async addNewBill(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.billsService.addBill(this.bill);
       if (this.response && this.response.status === 'Success') {
-        this.toastr.success('Edytowano rachunek');
-        this.lastYear = '';
+        this.toastr.success('Dodano rachunek');
         this.selectedComponent = 'Table';
         this.elements = await this.billsService.getBillsForUser(this.cookieService.get('userMail'));
       }
+    } else {
+      this.selectedComponent = 'Table';
+    }
+  }
+  async editBillInDB(arg: boolean) {
+    if (arg == true) {
+      if (this.billEdit) {
+        this.response = await this.billsService.editBill(this.billEdit);
+        if (this.response && this.response.status === 'Success') {
+          this.toastr.success('Edytowano rachunek');
+          this.lastYear = '';
+          this.selectedComponent = 'Table';
+          this.elements = await this.billsService.getBillsForUser(this.cookieService.get('userMail'));
+        }
+      }
+    } else {
+      this.selectedComponent = 'Table';
+    }
+  }
+
+  async delBillInDB(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.billsService.deleteBill(this.billId);
+      if (this.response && this.response.status === 'Success') {
+        this.toastr.success('Usunięto notatkę');
+        this.selectedComponent = 'Table';
+        this.elements = await this.billsService.getBillsForUser(this.cookieService.get('userMail'));
+      }
+    } else {
+      this.selectedComponent = 'Table';
     }
   }
   newLastYear(newYear: string) {

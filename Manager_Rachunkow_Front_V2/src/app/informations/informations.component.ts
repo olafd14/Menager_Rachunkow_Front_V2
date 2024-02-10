@@ -17,6 +17,7 @@ export class InformationsComponent implements OnInit {
   response: IResponse | undefined = { code: 0, message: '', status: '' };
   information: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
   informationEdit: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
+  headElements = ['Nazwa', "Treść"];
   informationId: number = 0; 
   constructor(private informationService: InformationsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {
@@ -37,28 +38,40 @@ export class InformationsComponent implements OnInit {
     this.selectedComponent = 'Del';
     this.informationId = infoId;
   }
-  async delInfoInDB() {
-    this.response = await this.informationService.deleteInformation(this.informationId);
-    if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Usunięto notatkę');
+  async delInfoInDB(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.informationService.deleteInformation(this.informationId);
+      if (this.response && this.response.status === 'Success') {
+        this.toastr.success('Usunięto notatkę');
+        this.selectedComponent = 'Table';
+        this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
+      }
+    } else {
       this.selectedComponent = 'Table';
-      this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
     }
   }
-  async addNewInfo() {
-    this.response = await this.informationService.addInformation(this.information);
-    if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Dodano notatkę');
+  async addNewInfo(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.informationService.addInformation(this.information);
+      if (this.response && this.response.status === 'Success') {
+        this.toastr.success('Dodano notatkę');
+        this.selectedComponent = 'Table';
+        this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
+      }
+    } else {
       this.selectedComponent = 'Table';
-      this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
     }
   }
-  async editInfoInDB() {
-    this.response = await this.informationService.editInformation(this.informationEdit);
-    if (this.response && this.response.status === 'Success') {
-      this.toastr.success('Edytowano notatkę');
+  async editInfoInDB(arg: boolean) {
+    if (arg == true) {
+      this.response = await this.informationService.editInformation(this.informationEdit);
+      if (this.response && this.response.status === 'Success') {
+        this.toastr.success('Edytowano notatkę');
+        this.selectedComponent = 'Table';
+        this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
+      }
+    } else {
       this.selectedComponent = 'Table';
-      this.elements = await this.informationService.getInformationsForUser(this.cookieService.get('userMail'));
     }
   }
 }

@@ -1,79 +1,86 @@
-<br>
-<br>
-<button type="button" (click)="addNew()" class="btn btn-primary">Dodaj nową notatkę</button>
-<br>
-<br>
-<br>
-<div [ngSwitch]="selectedComponent">
-    <ng-template [ngSwitchCase]="'Table'">   
-        <div *ngFor="let el of elements?.informationList">
-            <b>{{el.name}}</b><br>
-            {{el.content}} <br>
-            <button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button><br><br>
-            <button type="button" class="btn btn-info" (click)="delInfo(el.id)">Usuń</button><br><br>
+<div class="container my-5">
+    <button type="button" (click)="addNew()" class="btn btn-primary">Dodaj nową notatkę</button>
+    <br><br><br>
+    <div id="create-bill-form" class="p-3 bg-light border rounded">
+        <div [ngSwitch]="selectedComponent">
+            <ng-template [ngSwitchCase]="'Table'">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let el of elements?.informationList">
+                            <tr mdbTableCol>
+                                <td>{{el.name}}</td>
+                                <td>{{el.content}}</td>
+                                <td><button type="button" class="btn btn-info" (click)="editInfo(el)">Edytuj</button>
+                                <button type="button" class="btn btn-danger" (click)="delInfo(el.id)">Usuń</button></td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'AddNewInfo'">
+                <div class="center-div">
+                    <p style="text-align:center">Dodaj nowa notatkę</p>
+                    <form #empForm="ngForm">
+                        <div class="form-group">
+                            <label for="exampleInputYear">Nazwa</label>
+                            <input style="width: 100%;" type="text" name="name" [(ngModel)]="information.name"
+                                class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                                placeholder="Tytuł notatki">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputContent">Treść</label>
+                            <input style="width: 100%;" type="text" name="content" [(ngModel)]="information.content"
+                                class="form-control" id="exampleInputContent" placeholder="Notatka">
+                        </div>
+                    </form>
+                    <br>
+                    <button style="width: 100%;"type="button" (click)="addNewInfo(true)"
+                        class="btn btn-primary w-100">Dodaj</button><br><br>
+                    <button style="width: 100%;"type="button" (click)="addNewInfo(false)"
+                        class="btn btn-primary w-100">Powrót</button><br><br>
+                </div>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'Edit'">
+                <div class="center-div">
+                    <p style="text-align:center">Edytuj wybrana pozycje</p>
+                    <form #empForm="ngForm">
+                        <div class="form-group">
+                            <label for="exampleInputYear">Nazwa</label>
+                            <input style="width: 100%;" type="text" name="name" [(ngModel)]="informationEdit.name"
+                                class="form-control" id="exampleInputName" aria-describedby="nameHelp"
+                                placeholder="Nazwa informacji">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputContent">Informacja</label>
+                            <input style="width: 100%;" type="text" name="content" [(ngModel)]="informationEdit.content"
+                                class="form-control" id="exampleInputContent" placeholder="Informacja">
+                        </div>
+                    </form>
+                    <br>
+                    <button style="width: 100%;"type="button" (click)="editInfoInDB(true)"
+                        class="btn btn-primary btn-100with">Edytuj</button><br><br>
+                    <button style="width: 100%;"type="button" (click)="editInfoInDB(false)"
+                        class="btn btn-primary btn-100with">Powrót</button><br><br>
+                </div>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'Del'">
+                <div class="center-div">
+                    <p style="text-align:center">Czy na pewno usunąć?</p>
+                    <form #empForm="ngForm">
+                        <button style="width: 100%;" type="button" (click)="delInfoInDB(true)"
+                            class="btn btn-danger btn-100with">Usuń</button><br><br>
+                        <button style="width: 100%;" type="button" (click)="delInfoInDB(false)"
+                            class="btn btn-primary btn-100with">Powrót</button><br><br>
+                    </form>
+                </div>
+            </ng-template>
+            <ng-template ngSwitchDefault>
+            </ng-template>
         </div>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'AddNewInfo'">
-        <div class="center-div">
-            <font size="6" face="Times New Roman" color="black">
-                <p style="text-align:center">Dodaj nową notatkę</p>
-            </font>
-            <form #empForm="ngForm">
-                <div class="form-group">
-                    <label for="exampleInputYear">Nazwa</label>
-                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="information.name"
-                        class="form-control" id="exampleInputName" aria-describedby="nameHelp"
-                        placeholder="Nazwa informacji">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputContent">Informacja</label>
-                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="information.content"
-                        class="form-control" id="exampleInputContent" placeholder="Informacja">
-                </div>
-            </form>
-            <br>
-            <button type="button" (click)="addNewInfo()" class="btn btn-primarybtn-100with">Dodaj</button><br><br>
-        </div>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'Edit'">
-        <div class="center-div">
-            <font size="6" face="Times New Roman" color="black">
-                <p style="text-align:center">Edytuj wybrana pozycje</p>
-            </font>
-            <form #empForm="ngForm">
-                <div class="form-group">
-                    <label for="exampleInputYear">Nazwa</label>
-                    <input style="width: 100%;" type="text" name="name" [(ngModel)]="informationEdit.name"
-                        class="form-control" id="exampleInputName" aria-describedby="nameHelp"
-                        placeholder="Nazwa informacji">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputContent">Informacja</label>
-                    <input style="width: 100%;" type="text" name="content" [(ngModel)]="informationEdit.content"
-                        class="form-control" id="exampleInputContent" placeholder="Informacja">
-                </div>
-            </form>
-            <br>
-            <button type="button" (click)="editInfoInDB()" class="btn btn-primary btn-100with">Edytuj</button><br><br>
-        </div>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'Del'">
-        <div class="center-div">
-            <font size="6" face="Times New Roman" color="black">
-                <p style="text-align:center">Czy na pewno usunąć?</p>
-            </font>
-            <form #empForm="ngForm">
-                <div class="form-group">
-                    <button type="button" (click)="delInfoInDB()" class="btn btn-primary btn-100with">Tak</button><br><br>
-                </div>
-                <div class="form-group">
-                    <button type="button" (click)="delInfoInDB()" class="btn btn-primary btn-100with">Nie</button><br><br>
-                </div>
-            </form>
-        </div>
-    </ng-template>
-    <ng-template ngSwitchDefault>
-    </ng-template>
+    </div>
 </div>
-<br>
-<br>

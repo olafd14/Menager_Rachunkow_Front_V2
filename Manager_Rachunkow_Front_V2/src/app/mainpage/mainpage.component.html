@@ -1,23 +1,49 @@
-<div class="logo">
-    <img src="./../../assets/Banner.png">
-    <div class="btn-group" style="width:100%; padding-left: 10%; padding-right: 10%;">
-        <button (click)="componentSelect('Home')" style="width:25%">Strona główna</button>
-        <ng-container *ngIf="isAdmin === 'true'; then AdminTemplate; else BillsTemplate">
-        </ng-container>
-        <ng-template #AdminTemplate>
-            <button (click)="componentSelect('Admin')" style="width:25%">Administrator</button>
-        </ng-template>
-        <ng-template #BillsTemplate>
-            <button (click)="componentSelect('Bills')" style="width:25%">Rachunki</button>
-        </ng-template>
-        <button (click)="componentSelect('Info')" style="width:25%">Notatki</button>
-        <button (click)="componentSelect('Logout')" style="width:25%">Wyloguj</button>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-0">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse justify-content-center w-100">
+                <ul class="navbar-nav">
+                    <li class="nav-item" (click)="componentSelect('Home')">
+                        <a class="navbar-brand">
+                            <img src="assets/logo.png" alt="Logo">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" (click)="componentSelect('Home')"><i class="bi bi-house"></i> Home</a>
+                    </li>
+                    <ng-container *ngIf="isAdmin === 'true'; else BillsTemplate">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" (click)="componentSelect('Admin')"><i class="bi bi-shield-lock"></i> Administrator</a>
+                        </li>
+                    </ng-container>
+                    <ng-template #BillsTemplate>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" (click)="componentSelect('Bills')"><i class="bi bi-file-earmark-text"></i> Rachunki</a>
+                        </li>
+                    </ng-template>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" (click)="componentSelect('Info')"><i class="bi bi-info-circle"></i> Notatki</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" (click)="componentSelect('Logout')"><i class="bi bi-box-arrow-right"></i> Wyloguj</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<main role="main" class="pb-0 container-fluid">
+    <div class="container-fluid">
+        <div [ngSwitch]="selectedComponent" class="container-fluid">
+            <ng-template [ngSwitchCase]="'Home'"> <app-home></app-home> </ng-template>
+            <ng-template [ngSwitchCase]="'Admin'"> <app-admin></app-admin> </ng-template>
+            <ng-template [ngSwitchCase]="'Bills'"> <app-bills></app-bills> </ng-template>
+            <ng-template [ngSwitchCase]="'Info'"> <app-info></app-info> </ng-template>
+            <ng-template ngSwitchDefault> <app-home></app-home> </ng-template>
+        </div>
     </div>
-    <div style="width:60%; margin-left: 15%;" [ngSwitch]="selectedComponent">
-        <ng-template [ngSwitchCase]="'Home'"> <app-home></app-home> </ng-template>
-        <ng-template [ngSwitchCase]="'Admin'"> <app-admin></app-admin></ng-template>
-        <ng-template [ngSwitchCase]="'Bills'"> <app-bills></app-bills></ng-template>
-        <ng-template [ngSwitchCase]="'Info'"> <app-info></app-info> </ng-template>
-        <ng-template ngSwitchDefault> <app-home></app-home></ng-template>
-    </div>
-</div>
+</main>
