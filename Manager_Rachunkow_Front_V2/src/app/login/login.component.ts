@@ -42,20 +42,19 @@ export class LoginComponent implements OnInit {
       this.cookieService.set('userMail', this.logedInDb.mail);
       this.cookieService.set('userId', this.logedInDb.idUser);
       this.cookieService.set('isAdmin', isAdminLocal);
-      this.toastr.success('Sukces!', 'Konto zostało zalogowane');
+      this.toastr.success('', 'Konto zostało zalogowane');
       console.log(this.logedInDb);
       console.log(this.logedInDb.idUser);
       this.router.navigate(['home']);
     } else {
 
-      if(this.logedInDb.message == "Konto jest zablokowane"){
-        this.toastr.error(this.logedInDb.message);
-        return;
-      }
-
+        if(this.logedInDb.message == "Konto jest zablokowane"){
+          this.toastr.error(this.logedInDb.message);
+          return;
+        }
       this.toastr.error('Podano zły e-mail lub hasło');
       this.infoInvalidData = 'Podano zły e-mail lub hasło';
-    }
+      }
   }
 
   async register() {
@@ -75,7 +74,7 @@ export class LoginComponent implements OnInit {
       this.cookieService.set('userMail', this.registerInDb.mail);
       this.cookieService.set('userId', this.registerInDb.idUser);
       this.cookieService.set('isAdmin', isAdminLocal);
-      this.toastr.success('Success!', 'Rejestracja ukończona pomyślnie. Konto zalogowane!');
+      this.toastr.success('', 'Rejestracja ukończona pomyślnie. Konto zalogowane!');
       this.router.navigate(['home']);
     } else {
       this.toastr.error('Rejestracja nie powiodła się');
