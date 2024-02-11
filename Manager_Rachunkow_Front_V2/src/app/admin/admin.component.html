@@ -1,68 +1,70 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<div [ngSwitch]="selectedComponent">
-    <ng-template [ngSwitchCase]="'Table'">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr mdbTableCol *ngFor="let el of elements?.usersList">
-                    <td>{{el.name}}</td>
-                    <td>{{el.mail}}</td>
-                    <td>{{el.telNumber}}</td>
-                    <td>{{el.isPaid}}</td>
-                    <td><button type="button" class="btn btn-info" (click)="editUser(el)">Edytuj</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'Edit'">
-        <div class="center-div">
-            <font size="6" face="Times New Roman" color="black">
-                <p style="text-align:center">Edytuj wybranego uzytkownika</p>
-            </font>
-            <form #empForm="ngForm">
-                <div class="form-group">
-                    <label for="exampleInputName">Nazwa</label>
-                    <input style="width: 30%;" type="text" name="name" [(ngModel)]="userEdit.name" class="form-control"
-                        id="exampleInputName" aria-describedby="nameHelp" placeholder="nazwa">
+<div class="container my-5">
+    <div [ngSwitch]="selectedComponent">
+        <ng-template [ngSwitchCase]="'Table'">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr mdbTableCol *ngFor="let el of elements?.usersList; let i = index">
+                        <td>{{el.name}}</td>
+                        <td>{{el.mail}}</td>
+                        <td>{{el.telNumber}}</td>
+                        <td>{{i === 0 ? 'Administrator' : (el.isPaid ? 'Tak' : 'Nie')}}</td>
+                        <td><button type="button" class="btn btn-info" (click)="editUser(el, i)">Edytuj</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'Edit'">
+            <div id="create-bill-form" class="p-3 bg-light border rounded">
+                <div class="text-left">
+                    <h1>Edytuj wybranego uzytkownika</h1>
+                    <form #empForm="ngForm">
+                        <div class="form-group">
+                            <label for="exampleInputName">Nazwa</label>
+                            <input style="width: 30%;" type="text" name="name" [(ngModel)]="userEdit.name" class="form-control"
+                                id="exampleInputName" aria-describedby="nameHelp" placeholder="nazwa" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputMail">Mail</label>
+                            <input style="width: 30%;" type="text" name="mail" [(ngModel)]="userEdit.mail" class="form-control"
+                                id="exampleInputMail" placeholder="mail" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputTelNumber">Numer telefonu</label>
+                            <input style="width: 30%;" type="text" name="telNumber" [(ngModel)]="userEdit.telNumber"
+                                class="form-control" id="exampleInputtelNumber" placeholder="numer telefonu">
+                        </div>
+
+                        <div *ngIf="!isAdminAccount" class="form-group">
+                            <label for="exampleInputIsPaid">Blokada</label>
+                            <select style="width: 30%;" [(ngModel)]="selectedOptionPaid" name="isPaid" class="form-control" id="exampleInputIsPaid">
+                                <option *ngFor="let option of paidCollection" [value]="option">{{option}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputRole">Rola</label>
+                            <br>
+                            <div *ngIf="!isAdminAccount; else adminRole">
+                                <label for="exampleInputUserRole1"><b>Użytkownik</b></label>
+                            </div>
+                            <ng-template #adminRole>
+                                <label for="exampleInputAdminRole1"><b>Administrator</b></label>
+                            </ng-template>
+                        </div>
+                    </form>
+                    <br>
+                    <button style="width: 100%;"type="button" (click)="editUserInDB(true)" class="btn btn-primary btn-100with">Edytuj</button><br><br>
+                    <button style="width: 100%;"type="button" (click)="editUserInDB(false)" class="btn btn-primary btn-100with">Powrót</button><br><br>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputMail">Mail</label>
-                    <input style="width: 30%;" type="text" name="mail" [(ngModel)]="userEdit.mail" class="form-control"
-                        id="exampleInputMail" placeholder="mail">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword">Haslo</label>
-                    <input style="width: 30%;" type="text" name="password" [(ngModel)]="userEdit.password"
-                        class="form-control" id="exampleInputPassword" aria-describedby="psswordHelp"
-                        placeholder="haslo" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputTelNumber">Numer telefonu</label>
-                    <input style="width: 30%;" type="text" name="telNumber" [(ngModel)]="userEdit.telNumber"
-                        class="form-control" id="exampleInputtelNumber" placeholder="numer telefonu">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputisPaid">Czy zaplacono?</label>
-                    <input style="width: 30%;" type="text" name="isPaid" [(ngModel)]="userEdit.isPaid"
-                        class="form-control" id="exampleInputisPaid" aria-describedby="isPaidHelp"
-                        placeholder="zaplacono?">
-                </div>
-            </form>
-            <br>
-            <button style="width: 100%;"type="button" (click)="editUserInDB(true)" class="btn btn-primary btn-100with">Edytuj</button><br><br>
-            <button style="width: 100%;"type="button" (click)="editUserInDB(false)" class="btn btn-primary btn-100with">Powrót</button><br><br>
-        </div>
-    </ng-template>
-    <ng-template ngSwitchDefault>
-    </ng-template>
+            </div>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+        </ng-template>
+    </div>
 </div>
 <br>
 <br>

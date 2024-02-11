@@ -17,7 +17,7 @@ export class InformationsComponent implements OnInit {
   response: IResponse | undefined = { code: 0, message: '', status: '' };
   information: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
   informationEdit: IInformation = { name: '', content: '', userId: this.cookieService.get('userId'), id: 0 };
-  headElements = ['Nazwa', "Treść"];
+  headElements = ['Nazwa', "Treść", ""];
   informationId: number = 0; 
   constructor(private informationService: InformationsService, private toastr: ToastrService, private cookieService: CookieService) { }
   ngOnInit() {

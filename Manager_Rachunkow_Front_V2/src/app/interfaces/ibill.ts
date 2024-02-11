@@ -15,4 +15,5 @@ export interface IBill {
     october: string;
     november: string;
     december: string;
+    [key: string]: string | number;
 }

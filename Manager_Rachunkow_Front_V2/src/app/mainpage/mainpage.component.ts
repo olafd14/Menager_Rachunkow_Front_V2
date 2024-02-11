@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
   componentSelect(choosedComponent: string) {
     if (choosedComponent === "Logout") {
       this.cookieService.set('userMail', '');
-      this.toastr.success('Wylogowales sie');
+      this.toastr.success('Konto zostało wylogowane');
       this.router.navigate(['login']);
     }
     this.selectedComponent = choosedComponent;
